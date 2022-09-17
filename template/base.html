@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5PDHGFB');</script>
+<!-- End Google Tag Manager -->
+
+  <!-- Primary Meta Tags -->
+  <title>{% block title %} {% endblock %}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="title" content="{% block title2 %} {% endblock %}">
+  <meta name="description" content="{% block description %} {% endblock %}">
+  <meta name="keywords" content="{% block keywords %} {% endblock %}" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quriosity.tech/dashboard/">
+  <meta property="og:title" content="Dashboard | Quriosity">
+  <meta property="og:description" content="Platform to practice programming problems. Quriosity is the best platform to help you enhance your coding skills, expand your knowledge and prepare for technical interviews.">
+  <meta property="og:image" content="https://quriosity.tech{% static 'assets/images/logo_1200X638.png' %}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://quriosity.tech/dashboard/">
+  <meta property="twitter:title" content="Dashboard | Quriosity">
+  <meta property="twitter:description" content="Platform to practice programming problems. Quriosity is the best platform to help you enhance your coding skills, expand your knowledge and prepare for technical interviews.">
+  <meta property="twitter:image" content="https://quriosity.tech{% static 'assets/images/logo_1200X638.png' %}">
+
+  {% comment %} <title>{% block title %} {% endblock %}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="{% block description %} {% endblock %}" />
+  <meta name="keywords" content="{% block keywords %} {% endblock %}" />
+  <meta name="author" content="DashboardKit " /> {% endcomment %}
+
+  <!-- Favicon icon -->
+  <link rel="icon" href="{% static 'assets/images/mini-logo-small.png' %}" type="image/x-icon" />
+
+  <!-- font css -->
+  <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}" />
+
+  <!-- vendor css -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" id="main-style-link" />
+</head>
+
+<body class="">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PDHGFB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- [ Pre-loader ] start -->
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+  <!-- [ Pre-loader ] End -->
+
+  <!-- [ Mobile header ] start -->
+  <div class="pc-mob-header pc-header">
+    <div class="pcm-logo">
+      <img src="{% static 'assets/images/logo1-small.png' %}" alt="" class="logo logo-lg" style="filter: brightness(0.8) invert(1);" />
+    </div>
+    <div class="pcm-toolbar">
+      <a href="#!" class="pc-head-link" id="mobile-collapse">
+        <div class="hamburger hamburger--arrowturn">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
+        </div>
+      </a>
+      {% comment %} <a href="#!" class="pc-head-link" id="headerdrp-collapse">
+        <i data-feather="align-right"></i>
+      </a> {% endcomment %}
+      <a href="#!" class="pc-head-link" id="header-collapse">
+        <i data-feather="more-vertical"></i>
+      </a>
+    </div>
+  </div>
+  <!-- [ Mobile header ] End -->
+
+  <!-- [ navigation menu ] start -->
+  <nav class="pc-sidebar">
+    <div class="navbar-wrapper">
+      <div class="m-header">
+        <a href="/" class="b-brand">
+          <!-- ========   change your logo hear   ============ -->
+          <img src="{% static 'assets/images/l6.png'%}" alt="" class="logo logo-lg" style="filter: brightness(0.8) invert(1);" />
+          <img src="{% static 'assets/images/mini-logo-small.png'%}" alt="" class="logo logo-sm" style="filter: brightness(0.8) invert(1);" />
+        </a>
+      </div>
+      <div class="navbar-content">
+        <ul class="pc-navbar">
+          <li class="pc-item pc-caption">
+            <label>Problems</label>
+          </li>
+          <li class="pc-item pc-hasmenu">
+            <a href="#!" class="pc-link"><span class="pc-micon"><i class="material-icons-two-tone">topic</i></span><span
+                class="pc-mtext">Topics</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+            <ul class="pc-submenu">
+              {% block alltopic %}{% endblock %}
+            </ul>
+          </li>
+          {% comment %} <li class="pc-item">
+            <a href="icon-feather.html" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">history_edu</i></span><span class="pc-mtext">Today's
+                Problem</span></a>
+          </li> {% endcomment %}
+          <li class="pc-item pc-caption">
+            <label>Account</label>
+            <span>{{request.user}}</span>
+          </li>
+          <li class="pc-item">
+            <a href="/dashboard" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">dashboard</i></span><span class="pc-mtext">Dashboard</span></a>
+            {% comment %} <a href="/profile" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">perm_identity</i></span><span class="pc-mtext">Profile</span></a>
+            {% endcomment %}
+            {% comment %} <a href="/activity" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">history</i></span><span class="pc-mtext">Activity</span></a> {% endcomment %}
+            {% comment %} <a href="/settings" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">settings</i></span><span class="pc-mtext">Settings</span></a>
+            {% endcomment %}
+            <a href="/faq" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">info</i></span><span class="pc-mtext">FAQs</span></a>
+            {% if user.is_authenticated %}
+            <a href="/log_out" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">delete</i></span><span class="pc-mtext">Log Out</span></a>
+            {% else %}
+            <a href="/signup" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">person_add</i></span><span class="pc-mtext">Sign Up</span></a>
+            <a href="/log_in" class="pc-link"><span class="pc-micon"><i
+                  class="material-icons-two-tone">login</i></span><span class="pc-mtext">Log in</span></a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- [ navigation menu ] end -->
+
+  <!-- [ Header ] start -->
+  <header class="pc-header">
+    <div class="header-wrapper">
+      <div class="mr-auto pc-mob-drp">
+        <ul class="list-unstyled">
+          <li class="dropdown pc-h-item">
+            <a class="pc-head-link active dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button"
+              aria-haspopup="false" aria-expanded="false">
+              V.2.1 (&beta;eta)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="ml-auto">
+        <ul class="list-unstyled">
+          <li class="dropdown pc-h-item">
+            <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button"
+              aria-haspopup="false" aria-expanded="false">
+              <i class="material-icons-two-tone">search</i>
+            </a>
+            <div class="
+                  dropdown-menu dropdown-menu-right
+                  pc-h-dropdown
+                  drp-search
+                ">
+              <form class="px-3">
+                <div class="form-group mb-0 d-flex align-items-center">
+                  <i data-feather="search"></i>
+                  <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." />
+                </div>
+              </form>
+            </div>
+          </li>
+          <li class="dropdown pc-h-item">
+            <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button"
+              aria-haspopup="false" aria-expanded="false">
+              <img src="{% static 'assets/images/user/avatar-2.png'%}" alt="user-image" class="user-avtar" />
+              <span>
+                <span class="user-name">{{request.user}}</span>
+                <span class="user-desc">{{request.user.email}}</span>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+              <div class="dropdown-header">
+                <h5 class="text-overflow m-0">
+                  <span class="badge bg-light-primary">{% if user.is_authenticated %}{{request.user.first_name}}
+                   {{request.user.last_name}}{% else %}For more features{% endif %}</span>
+                </h5>
+              </div>
+              {% if user.is_authenticated %}
+              <a href="/log_out" class="dropdown-item">
+                <i class="material-icons-two-tone">delete</i>
+                <span>Logout</span>
+              </a>
+              {% else %}
+              <a href="/signup" class="dropdown-item">
+                <i class="material-icons-two-tone">person_add</i>
+                <span>Sign Up</span>
+              </a>
+              <a href="/log_in" class="dropdown-item">
+                <i class="material-icons-two-tone">login</i>
+                <span>Login</span>
+              </a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <!-- [ Header ] end -->
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    {% block body %}{% endblock %}
+  </div>
+  <!-- [ Main Content ] end -->
+
+  <!-- Required Js -->
+  <script src="{% static 'assets/js/vendor-all.min.js'%}"></script>
+  <script src="{% static 'assets/js/plugins/bootstrap.min.js'%}"></script>
+  <script src="{% static 'assets/js/plugins/feather.min.js'%}"></script>
+  <script src="{% static 'assets/js/pcoded.min.js'%}"></script>
+  {% comment %} <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+  <!-- <script src="assets/js/plugins/clipboard.min.js"></script> -->
+  <!-- <script src="assets/js/uikit.min.js"></script> --> {% endcomment %}
+
+  <!-- Apex Chart -->
+  {% comment %} <script src="{% static 'assets/js/plugins/apexcharts.min.js'%}"></script> {% endcomment %}
+
+  <!-- custom-chart js -->
+  {% comment %} <script src="{% static 'assets/js/pages/dashboard-sale.js'%}"></script> {% endcomment %}
+</body>
+
+</html>

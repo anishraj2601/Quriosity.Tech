@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}FAQs | {% if request.user.is_anonymous %}Quriosity{% else %}{{request.user}}{% endif %}{% endblock %}
+{% block title2 %}FAQs | {% if request.user.is_anonymous %}Quriosity{% else %}{{request.user}}{% endif %}{% endblock %}
+{% block description %}Read recent FAQs about Quriosity. Platform to practice programming problems. Quriosity is the best platform to help you enhance your coding skills, expand your knowledge and prepare for technical interviews.{% endblock %}
+{% block keywords %}quriosity,faqs{% endblock %}
+{% block alltopic %}
+{% for topic in alltopic %}
+{% if topic.active == True %}
+<li class="pc-item">
+  <a class="pc-link" href="/problems/{{topic.slug}}">{{topic.title|truncatechars:20}}</a>
+</li>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block body %}
+<div class="pcoded-content">
+  <!-- [ breadcrumb ] start -->
+  <div class="page-header">
+    <div class="page-block">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="page-header-title">
+            <h5 class="m-b-10">Quriosity</h5>
+          </div>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/faq">FAQs</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ breadcrumb ] end -->
+
+  <!-- [ Main Content ] start -->
+  <!-- Quriosity main body starts here-->
+  <div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}
+      role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card-header bg-white">
+        <h3 class="text-primary">FAQs</h3>
+        <span class="d-block m-t-5" style="color:grey;">Your <span style="color: green;"><b>recent</b></span> account
+          activity will appear below.</span>
+      </div>
+      </br>
+      <div class="accordion" id="accordionExample">
+        {% for faq in allfaq %}
+        {% if faq.active == True %}
+        <div class="card">
+          <div class="card-header" id="heading{{ forloop.counter }}">
+            <h5 class="mb-0"><a href="#!" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}"
+                aria-expanded="{% if forloop.counter == 1 %}true{% else %}false{% endif %}"
+                aria-controls="collapse{{ forloop.counter }}">{{faq.title}}</a></h5>
+          </div>
+          <div id="collapse{{ forloop.counter }}" class=" card-body collapse {% if forloop.counter == 1 %}show{% endif %}"
+            aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordionExample">
+            {{faq.text}}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- Quriosity main body end here-->
+  <!-- [ Main Content ] end -->
+</div>
+{% endblock %}

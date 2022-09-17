@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Activity | {{request.user}}{% endblock %}
+{% block description %} This page contains the problems you have recently solved {% endblock %}
+{% block keywords %}Activity,Quriosity{% endblock %}
+{% block alltopic %}
+{% for topic in alltopic %}
+{% if topic.active == True %}
+<li class="pc-item">
+  <a class="pc-link" href="/problems/{{topic.slug}}">{{topic.title|truncatechars:20}}</a>
+</li>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block body %}
+<div class="pcoded-content">
+  <!-- [ breadcrumb ] start -->
+  <div class="page-header">
+    <div class="page-block">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="page-header-title">
+            <h5 class="m-b-10">Quriosity</h5>
+          </div>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/activity">Activity</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ breadcrumb ] end -->
+
+  <!-- [ Main Content ] start -->
+  <!-- Quriosity main body starts here-->
+  <div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}
+      role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-primary">Your Activity</h3>
+          <span class="d-block m-t-5" style="color:grey;">The problem you have <span style="color: green;"><b>' Mark as
+                complete '</b></span> will appear here.</span>
+        </div>
+        <div class="card-body table-border-style">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Problem Name</th>
+                  <th>Difficulty</th>
+                  <th>Action</th>
+                  <th>Resources</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for problem in prob %}
+                {% if problem.active == True %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td><a href="{{problem.problem_url}}" target="_blank">{{problem.title}}</a></td>
+                  <td>
+                    {{problem.tag}}
+                  </td>
+                  <td>
+                    {% if problem in userProbData and userProbData.like is 'like' %}hello{% else %}not hello{% endif %}
+                    <div class="btn-group" role="group">
+                      <input type="radio" class="btn-check" id="like{{ forloop.counter }}" autocomplete="off"
+                        name="like{{ forloop.counter }}" checked="checked">
+                      <label class="btn btn-light-success" for="like{{ forloop.counter }}"><i class="mr-2"
+                          data-feather="thumbs-up"></i>1565</label>
+                      <input type="radio" class="btn-check" id="unlike{{ forloop.counter }}" autocomplete="off"
+                        name="unlike{{ forloop.counter }}">
+                      <label class="btn btn-light-danger" for="unlike{{ forloop.counter }}"><i class="mr-2"
+                          data-feather="thumbs-down"></i>245</label>
+                    </div>
+                  </td>
+                  <td style="align-items: center;">
+                    <button type="button" class="btn btn-icon btn-outline-success"><i data-feather="check-circle"></i>
+                      mark as complete</button>
+                    <a href="{{problem.solution_url}}" target="_blank" type="button"
+                      class="btn btn-icon btn-outline-primary"><i data-feather="code"></i>
+                      solution</a>
+                    {% comment %} check if the video link exists or not. Only then show the buttons {% endcomment %}
+                    <a href="{{problem.video_url}}" target="_blank" type="button"
+                      class="btn btn-icon btn-outline-danger"><i data-feather="youtube"></i>
+                      video</a>
+                    {% comment %} <button type="button" class="btn btn-icon btn-outline-success" disabled><i
+                        data-feather="share"></i>share</button> {% endcomment %}
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Quriosity main body end here-->
+  <!-- [ Main Content ] end -->
+</div>
+{% endblock %}

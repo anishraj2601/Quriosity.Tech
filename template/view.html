@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}View | {% if request.user.is_anonymous %}Quriosity{% else %}{{request.user}}{% endif %}{% endblock %}
+{% block title2 %}View | {% if request.user.is_anonymous %}Quriosity{% else %}{{request.user}}{% endif %}{% endblock %}
+{% block description %}Platform to practice programming problems. Quriosity is the best platform to help you enhance your coding skills, expand your knowledge and prepare for technical interviews.{% endblock %}
+{% block keywords %}view,problems{% endblock %}
+{% block alltopic %}
+{% for topic in alltopic %}
+{% if topic.active == True %}
+<li class="pc-item">
+  <a class="pc-link" href="/view/{{topic.slug}}">{{topic.title|truncatechars:20}}</a>
+</li>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block body %}
+<div class="pcoded-content">
+  <!-- [ breadcrumb ] start -->
+  <div class="page-header">
+    <div class="page-block">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="page-header-title">
+            <h5 class="m-b-10">Quriosity</h5>
+          </div>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#" >View</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/view/{{top.slug}}">{{top.title}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ breadcrumb ] end -->
+
+  <!-- [ Main Content ] start -->
+  <!-- Quriosity main body starts here-->
+  <div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}
+      role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="col-sm-6 col-md-4">
+      <div class="card prod-p-card bg-primary background-pattern-white">
+        <div class="card-body">
+          <div class="row align-items-center m-b-0">
+            <div class="col">
+              <h6 class="m-b-5 text-white">Total Problems</h6>
+              <h3 class="m-b-0 text-white">{{total_problem}}</h3>
+            </div>
+            <div class="col-auto">
+              <i class="material-icons-two-tone text-white">card_giftcard</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="card prod-p-card bg-success background-pattern-white">
+        <div class="card-body">
+          <div class="row align-items-center m-b-0">
+            <div class="col">
+              <h6 class="m-b-5 text-white">Problems Solved</h6>
+              <h3 class="m-b-0 text-white">{{problem_solved}}</h3>
+            </div>
+            <div class="col-auto">
+              <i class="material-icons-two-tone text-white">check_circle</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="card prod-p-card background-pattern">
+        <div class="card-body">
+          <div class="row align-items-center m-b-0">
+            <div class="col">
+              <h6 class="m-b-5 text-primary">Problems Remaining</h6>
+              <h3 class="m-b-0 text-primary">{{problem_unsolved}}</h3>
+            </div>
+            <div class="col-auto">
+              <i class="material-icons-two-tone text-primary">unpublished</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{top.title}} Problem's</h3>
+          <span class="d-block m-t-5" style="color:grey;">Please click on <span style="color: green;"><b>' Mark as
+                complete '</b></span> after solving that problem. Every problem has link to it's solution and video
+            description attached with it. Do look at it for your reference.</span>
+        </div>
+        <div class="card-body table-border-style">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Problem Name</th>
+                  <th>Difficulty</th>
+                  <th> likes</th>
+                  <th>Resources</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for problem in prob %}
+                {% if problem.active == True %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td><a href="{{ problem.problem_url }}" target="_blank">{{problem.title}}</a></td>
+                  <td>
+                    {% if problem.tag == 'Easy' %}
+                    <span class="badge bg-light-success">{{problem.tag}}</span>
+                    {% comment %} <span class="badge bg-light-primary">{{problem.completed.all.count}}</span> {% endcomment %}
+                    {% elif problem.tag == 'Medium' %}
+                    <span class="badge bg-light-warning">{{problem.tag}}</span>
+                    {% else %}
+                    <span class="badge bg-light-danger">{{problem.tag}}</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      {% comment %} <form action="{% url 'likePost' problem.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="problem_id" value="{{ problem.id }}">
+                        <input type="hidden" name="slug_id" value="{{ slug }}">
+                        {% if user not in problem.liked.all %} {% endcomment %}
+                        <button class="btn btn-light-success" data-toggle="popover" title="Please Login/Signup" data-trigger="hover" data-content="Please login/Signup to your quriosity account to access this feature."><i class="mr-2" data-feather="thumbs-up"></i> {{problem.liked.all.count}}</button>
+                        {% comment %} {% else %}
+                        <button class="btn btn-success" type="submit"><i class="mr-2" data-feather="thumbs-up"></i> {{problem.liked.all.count}}</button>
+                        {% endif %}
+                      </form> {% endcomment %}
+                    </div>
+                  </td>
+                  <td style="align-items: center;" align="center">
+                      <button class="btn btn-light-secondary" data-toggle="popover" title="Please Login/Signup" data-trigger="hover" data-content="Please login/Signup to your quriosity account to access this feature."><i class="mr-2" data-feather="edit-2"></i> Mark as complete </button>
+                      <a href="{{problem.solution_url}}" target="_blank" type="button"
+                        class="btn btn-icon btn-outline-primary"><i data-feather="code"></i>
+                        solution</a>
+                      {% comment %} check if the video link exists or not. Only then show the buttons {% endcomment %}
+                      {% if problem.video_url != '#' or problem.video_url != "#" %}
+                        <a href="{{problem.video_url}}" target="_blank" type="button"
+                        class="btn btn-icon btn-outline-danger"><i data-feather="youtube"></i>
+                        video</a>
+                      {% endif %}
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Quriosity main body end here-->
+  <!-- [ Main Content ] end -->
+</div>
+{% endblock %}
